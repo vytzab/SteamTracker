@@ -72,7 +72,7 @@ public class App {
 	
 	@Override
 	public String toString() {
-		return "Application [appid=" + appid + ", name=" + name +
+		return "Application [discount_percent=" + discount_percent + "appid=" + appid + ", name=" + name +
 				", header_image=" + header_image +  ", is_free=" + is_free +
 				", discount_percent=" + discount_percent + ", initial=" + initial + "]";
 	}
