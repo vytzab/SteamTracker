@@ -24,11 +24,10 @@ public class Helper {
 
 	public static List<App> removeFreeApps () throws Exception {
 		List<App> appsInit = SteamAPI.getApps();
-		List<App> appsSubset = appsInit.subList(40000, 50000);
 		List<App> appsAfter = new ArrayList<App>();
 		int i = 0;
-		for (App app : appsSubset) {
-			System.out.println("Working on app " + i + " , out of " + appsSubset.size() + " apps.");
+		for (App app : appsAfter) {
+			System.out.println("Working on app " + i + " , out of " + appsAfter.size() + " apps.");
 			try {
 				app = SteamAPI.getApp(app.getAppid());
 				appsAfter.add(app);
@@ -46,6 +45,7 @@ public class Helper {
 		List<App> appsInit = SteamAPI.getApps();
 		List<App> appsAfter = new ArrayList<App>();
 		int i = 0;
+		System.out.println("Filtering apps that weren't modified.");
 		for (App app : appsInit) {
 			System.out.println("Working on app " + i + " , out of " + appsInit.size() + "apps.");
 			if (Helper.checkLastMod(app.getLast_modified())) {
@@ -65,6 +65,7 @@ public class Helper {
 	public static List<App> getDiscApps (List<App> appsInit) throws Exception {
 		List<App> appsAfter = new ArrayList<App>();
 		int i = 0;
+		System.out.println("Filtering apps that don't have a discount.");
 		for (App app : appsInit) {
 			System.out.println("Working on app " + i + " , out of " + appsInit.size() + " apps.");
 			if (Helper.checkDiscount(app.getDiscount_percent())) {

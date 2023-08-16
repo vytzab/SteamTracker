@@ -26,11 +26,7 @@ public class Main extends Application {
 //		System.out.println(app);
 //	}
 //	
-//	List<App> apps = Helper.removeFreeApps();
-//
-//	for (App app : apps) {
-//		System.out.println(app);
-//	}
+//	
 //
 //	apps = Helper.getDiscApps(apps);
 //

@@ -57,7 +57,7 @@ public class SteamAPI {
 		Gson gson = new Gson();
 
 		HttpRequest getRequest = HttpRequest.newBuilder().uri(new URI(Constants.BASE_API + Constants.STORE_INTERFACE + Constants.GET_APPS
-				+ "/?key=" + Constants.STEAM_API_KEY + "&steamids=" + Constants.STEAM_ID + "&max_results=50000")).GET().build();
+				+ "/?key=" + Constants.STEAM_API_KEY + "&steamids=" + Constants.STEAM_ID + "&max_results=1000")).GET().build();
 
 		HttpResponse<String> getResponse = httpClient.send(getRequest, BodyHandlers.ofString());
 		
