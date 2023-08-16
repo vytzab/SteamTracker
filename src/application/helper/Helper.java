@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -21,22 +22,43 @@ import application.models.App;
 
 public class Helper {
 
-	public static List<App> getApps () throws Exception {
+	public static List<App> removeFreeApps () throws Exception {
+		List<App> appsInit = SteamAPI.getApps();
+		List<App> appsSubset = appsInit.subList(40000, 50000);
+		List<App> appsAfter = new ArrayList<App>();
+		int i = 0;
+		for (App app : appsSubset) {
+			System.out.println("Working on app " + i + " , out of " + appsSubset.size() + " apps.");
+			try {
+				app = SteamAPI.getApp(app.getAppid());
+				appsAfter.add(app);
+			} catch (Exception e) {
+//				System.out.println("Exception happened while getting app: " + e);
+			}
+			i++;
+		}
+		System.out.println(appsAfter.size() + " apps remain after clearing free apps.");
+		return appsAfter;
+	}
+
+//	No need to check all apps anymore.
+	public static List<App> getModifiedApps () throws Exception {
 		List<App> appsInit = SteamAPI.getApps();
 		List<App> appsAfter = new ArrayList<App>();
 		int i = 0;
 		for (App app : appsInit) {
 			System.out.println("Working on app " + i + " , out of " + appsInit.size() + "apps.");
-			try {
-				app = SteamAPI.getApp(app.getAppid());
-				appsAfter.add(app);
-			} catch (Exception e) {
-//				System.out.println(app);
-//				System.out.println("Exception happened while getting app: " + e);
+			if (Helper.checkLastMod(app.getLast_modified())) {
+				try {
+					app = SteamAPI.getApp(app.getAppid());
+					appsAfter.add(app);
+				} catch (Exception e) {
+//					System.out.println("Exception happened while getting app: " + e);
+				}
 			}
 			i++;
 		}
-		System.out.println(appsAfter.size() + " apps remain after clearing.");
+		System.out.println(appsAfter.size() + " apps whose price was modified after given date remain.");
 		return appsAfter;
 	}
 
@@ -44,7 +66,7 @@ public class Helper {
 		List<App> appsAfter = new ArrayList<App>();
 		int i = 0;
 		for (App app : appsInit) {
-			System.out.println("Working on app " + i + " , out of " + appsInit.size() + "apps.");
+			System.out.println("Working on app " + i + " , out of " + appsInit.size() + " apps.");
 			if (Helper.checkDiscount(app.getDiscount_percent())) {
 				appsAfter.add(app);
 			}
@@ -56,6 +78,14 @@ public class Helper {
 
 	public static boolean checkDiscount (String discount) throws Exception {
 		if (Integer.parseInt(discount)>80) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean checkLastMod (String date) throws Exception {
+		if (Integer.parseInt(date)>1688346061) {
 			return true;
 		} else {
 			return false;

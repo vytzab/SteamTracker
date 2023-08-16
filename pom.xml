@@ -7,11 +7,6 @@
 	<description>Application to track free steam games, made with Java FX and REST API</description>
 	<dependencies>
 		<dependency>
-			<groupId>com.lukaspradel</groupId>
-			<artifactId>steam-web-api</artifactId>
-			<version>1.6.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>19</version>

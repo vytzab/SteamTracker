@@ -21,6 +21,8 @@ public class App {
 	private String discount_percent;
 
 	private String initial;
+	
+	private String last_modified;
 
 	public String getAppid() {
 		return appid;
@@ -69,11 +71,19 @@ public class App {
 	public void setInitial(String initial) {
 		this.initial = initial;
 	}
+
+	public String getLast_modified() {
+		return last_modified;
+	}
+
+	public void setLast_modified(String last_modified) {
+		this.last_modified = last_modified;
+	}
 	
 	@Override
 	public String toString() {
 		return "Application [discount_percent=" + discount_percent + "appid=" + appid + ", name=" + name +
 				", header_image=" + header_image +  ", is_free=" + is_free +
-				", discount_percent=" + discount_percent + ", initial=" + initial + "]";
+				", discount_percent=" + discount_percent + ", initial=" + initial + ", last_modified=" + last_modified + "]";
 	}
 }
